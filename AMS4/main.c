@@ -40,6 +40,10 @@ void printCard() {
 	printf("请输入查询卡号：");
 	scanf("%s",aName);
 	Card* res = searchCard(aName);
+	if(res == NULL){
+		printf("没要查找到相应数据\n");
+		return;
+	}
 	printf("\n卡号\t\t密码\t开卡金额\t卡状态\n");
 	printf("%s\t%s\t%f\t",res->aName, res->aPwd, res->fBalance);
 	switch(res->nStatus) {
@@ -52,7 +56,14 @@ void printCard() {
 }
 
 void useComputer() {
+	char aName[18]={0};
+
 	printf("上机\n");
+	printf("请输入卡号: ")
+	scanf("%s",aName);
+	Card* rescard = searchCard(aName);
+	rescard->nStatus = 1;
+	printf("上机成功\n");
 }
 
 void exitComputer() {
@@ -60,11 +71,36 @@ void exitComputer() {
 }
 
 void topUp() {
+	char aName[18]={0};
+	float money=0;
+
 	printf("充值\n");
+	printf("请输入卡号: ")
+	scanf("%s",aName);
+	printf("请输入充值金额: ");
+	scanf("%f",&money);
+	Card* rescard = searchCard(aName);
+	rescard->fBalance += money;
+	printf("充值成功\n");
 }
 
 void withdraw() {
+	char aName[18]={0};
+	float money=0;
+
 	printf("退费\n");
+	printf("请输入卡号: ")
+	scanf("%s",aName);
+	printf("请输入退费金额: ");
+	scanf("%f",&money);
+	Card* rescard = searchCard(aName);
+	if(rescard->fBalance >= money)
+	{
+		rescard->fBalance -= money;
+		printf("退费成功\n");
+	}else{
+		printf("余额不足。（余额：%d)\n",rescard->fBalance);
+	}
 }
 
 void searchAll() {
@@ -72,7 +108,14 @@ void searchAll() {
 }
 
 void exitCard() {
+	char aName[18]={0};
+
 	printf("注销卡\n");
+	printf("请输入卡号: ")
+	scanf("%s",aName);
+	Card* rescard = searchCard(aName);
+	rescard->nStatus = 2;
+	printf("注销成功\n");
 }
 
 int main() {

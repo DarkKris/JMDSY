@@ -63,7 +63,7 @@ int saveCard(char* aName, char* aPwd, float fBalance, struct tm endtm) {
 	rescard.nStatus = 0;			// 卡状态
 	addToList(&rescard);
 
-	fprintf(cardFile, "%s ", aName);		 		// 卡号
+	fprintf(cardFile, "%s ", aName);		 	// 卡号
 	fprintf(cardFile, "%s ", aPwd);				// 密码
 	fprintf(cardFile, "%d ", 0);				// 卡状态
 	fprintf(cardFile, "%ld ", nowTime);			// 开卡时间
