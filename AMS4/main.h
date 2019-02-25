@@ -51,8 +51,10 @@ time_t stringToTime(char* s);
 void addToList(Card* a);
 int deleNode(char* aName);
 Card* searchList(char *aName);
+void printAll();
 
 
+int opt; // opt the user chosed in the menu
 int nowCardNum;
 // Card card[MAXCARDNUMBER+1];
 Node card;

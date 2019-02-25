@@ -34,3 +34,11 @@ int deleNode(char* aName) {
 	}
 	return 0;
 }
+
+void printAll() {
+	Node* now = &card;
+	while(now->next != NULL) {
+		now = now->next;
+		printf("%s\n",now->data->aName);
+	}
+}
