@@ -23,8 +23,14 @@ typedef struct Card
 	int		nDel;			//删除标识 0-未删除，1-删除
 }Card;
 
-int readCard();
-int parseCard();
+typedef struct Node
+{
+	Card* data;
+	struct Node* next;
+}Node;
+
+
+/* menu */
 void outputMenu();
 void addCard();
 void printCard();
@@ -34,11 +40,21 @@ void topUp();
 void withdraw();
 void searchAll();
 void exitCard();
+/* card */
 int saveCard(char* aName, char* aPwd, float fBalance, struct tm endtm);
+int readCard();
+int parseCard();
 Card* searchCard(char *aName);
+/* tool */
 time_t stringToTime(char* s);
+/* List */
+void addToList(Card* a);
+int deleNode(char* aName);
+Card* searchList(char *aName);
+
 
 int nowCardNum;
-Card card[MAXCARDNUMBER+1];
+// Card card[MAXCARDNUMBER+1];
+Node card;
 
 #endif
