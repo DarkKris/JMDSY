@@ -1,7 +1,7 @@
 #include "main.h"
 
 int main() {
-	initCardList();
+	initCardList(&card);
 	readCard();
 	parseCard();
 	printf("欢迎进入计费管理系统\n");

@@ -33,25 +33,49 @@ void addCard() {
 }
 
 void printCard() {
-	char aName[18];
-	printf("\n查询卡:\n");
-	printf("请输入查询卡号：");
-	scanf("%s",aName);
-	Card* res = searchCard(aName);
-	if(res == NULL){
-		printf("没要查找到相应数据\n");
-		return;
-	}
-	printf("\n卡号");
-	if(strlen(res->aName)>8)printf("\t"); // 对齐
-	printf("密码\t开卡金额\t卡状态\n");
-
-	printf("%s\t%s\t%f\t",res->aName, res->aPwd, res->fBalance);
-	switch(res->nStatus) {
-		case 0: printf("未上机\n");break;
-		case 1: printf("正在上机\n");break;
-		case 2: printf("已注销\n");break;
-		case 3: printf("失效\n");break;
+	char aName[18]={0};
+	char pName[18]={0};
+	int pIndex;
+	Node* pres = NULL;
+	int opt;
+	int flag = 0;
+	printf("\n查询卡:\n请选择查询类型:\n------------\n1. 精确查找\n2. 模糊查找\n------------\n\n请选择(1~2) : ");
+	int whileFlag = 1;
+	while(whileFlag){
+		scanf("%d",&opt);
+		switch(opt)
+		{
+			case 1:	
+				// 精确查找
+				printf("请输入精确查找查询卡号(1~16)：");
+				scanf("%s",aName);
+				Card* ares = queryCard(aName);
+				if(ares == NULL){
+					printf("没要查找到相应数据\n");
+					return;
+				}
+				printCardInfo(ares,1);
+				whileFlag = 0;
+				break;
+			case 2:
+				// 模糊查找
+				printf("请输入模糊查找内容(1~16): ");
+				scanf("%s",pName);
+				pres = queryCards(pName,&pIndex);
+				if(pres->next == NULL) {
+					printf("没要查找到相应数据\n");
+					return;
+				}
+				flag = 1;
+				while(pres->next!=NULL){
+					pres = pres->next;
+					printCardInfo(pres->data,flag);
+					flag = 0;
+				}
+				whileFlag = 0;
+				break;
+			default: printf("输入错误，请重新输入 : ");
+		}
 	}
 	printf("\n");
 }
@@ -62,7 +86,7 @@ void useComputer() {
 	printf("上机\n");
 	printf("请输入卡号: ");
 	scanf("%s",aName);
-	Card* rescard = searchCard(aName);
+	Card* rescard = queryCard(aName);
 	if(rescard == NULL){
 		printf("卡号不存在\n");
 		return;
@@ -84,7 +108,7 @@ void topUp() {
 	scanf("%s",aName);
 	printf("请输入充值金额: ");
 	scanf("%f",&money);
-	Card* rescard = searchCard(aName);
+	Card* rescard = queryCard(aName);
 	if(rescard == NULL){
 		printf("卡号不存在\n");
 		return;
@@ -102,7 +126,7 @@ void withdraw() {
 	scanf("%s",aName);
 	printf("请输入退费金额: ");
 	scanf("%f",&money);
-	Card* rescard = searchCard(aName);
+	Card* rescard = queryCard(aName);
 	if(rescard == NULL){
 		printf("卡号不存在\n");
 		return;
@@ -118,7 +142,7 @@ void withdraw() {
 
 void searchAll() {
 	printf("查询统计\n");
-	printAll();
+	printAll(&card);
 }
 
 void exitCard() {
@@ -127,7 +151,7 @@ void exitCard() {
 	printf("注销卡\n");
 	printf("请输入卡号: ");
 	scanf("%s",aName);
-	Card* rescard = searchCard(aName);
+	Card* rescard = queryCard(aName);
 	if(rescard == NULL){
 		printf("卡号不存在\n");
 		return;

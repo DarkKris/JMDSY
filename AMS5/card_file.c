@@ -1,7 +1,8 @@
 #include "main.h"
 
-char rows[MAXCARDNUMBER+1][5000]={0};
+char rows[MAXCARDNUMBER+1][5000];
 int allRow = 0;
+extern int nowCardNum;
 
 int readCard() {
 	// read all of Cards info from file "card.txt"
@@ -37,7 +38,7 @@ int parseCard() {
 		rescard->tStart = stringToTime(tStart);
 		rescard->tEnd = stringToTime(tEnd);
 		rescard->tLast = stringToTime(tLast);
-		addToList(rescard);
+		addToList(rescard,&card);
 	}
 	return 1;
 }
@@ -61,7 +62,7 @@ int saveCard(char* aName, char* aPwd, float fBalance, struct tm endtm) {
 	rescard.nUseCount = 0;			// 使用次数
 	rescard.fTotalUse = 0;			// 累计金额
 	rescard.nStatus = 0;			// 卡状态
-	addToList(&rescard);
+	addToList(&rescard,&card);
 
 	fprintf(cardFile, "%s ", aName);		 	// 卡号
 	fprintf(cardFile, "%s ", aPwd);				// 密码

@@ -1,7 +1,7 @@
 #include "main.h"
 
-void addToList(Card* a) {
-	Node* now = &card;
+void addToList(Card* a, Node* head) {
+	Node* now = head;
 	while(now->next != NULL) now = now->next;
 	Node* res = (Node*)malloc(sizeof(Node));
 	res->data = a;
@@ -9,8 +9,8 @@ void addToList(Card* a) {
 	now->next = res;
 }
 
-Card* searchList(char *aName) {
-	Node* now = &card;
+Card* searchList(char *aName, Node* head) {
+	Node* now = head;
 	while(now->next != NULL){
 		now = now->next;
 		if(strcmp(now->data->aName,aName)==0)
@@ -19,9 +19,9 @@ Card* searchList(char *aName) {
 	return NULL;
 }
 
-int deleNode(char* aName) {
+int deleNode(char* aName, Node* head) {
 	Node* front = NULL;
-	Node* now = &card;
+	Node* now = head;
 
 	while(now->next != NULL) {
 		front = now;
@@ -35,8 +35,8 @@ int deleNode(char* aName) {
 	return 0;
 }
 
-void printAll() {
-	Node* now = &card;
+void printAll(Node* head) {
+	Node* now = head;
 	while(now->next != NULL) {
 		now = now->next;
 		printf("%s\n",now->data->aName);

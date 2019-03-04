@@ -8,7 +8,6 @@
 #include <string.h>
 #define MAXCARDNUMBER 10000000
 #define _CRT_SECURE_NO_WARNINGS
-// #define DEBUG
 
 typedef struct Card
 {
@@ -47,18 +46,21 @@ int readCard();
 int parseCard();
 /* Tool */
 time_t stringToTime(char* s);
+void printCardInfo(const Card* res, int haveHead);
 /* List */
-void addToList(Card* a);
-int deleNode(char* aName);
-Card* searchList(char *aName);
-void printAll();
+void addToList(Card* a, Node* head);
+int deleNode(char* aName, Node* head);
+Card* searchList(char *aName,Node* head);
+void printAll(Node* head);
 /* Card Service */
 void initCardList();
 Card* queryCard(char *aName);
+Card* queryCard();
+Node* queryCards(const char* pName , int* pIndex);
 
 
 int opt;			 // opt that the user chosen in the menu
-int nowCardNum=0;
+int nowCardNum;
 Node card;
 
 #endif
