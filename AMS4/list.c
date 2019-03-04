@@ -1,44 +1,51 @@
 #include "main.h"
 
-void addToList(Card* a) {
-	Node* now = &card;
-	while(now->next != NULL) now = now->next;
-	Node res;
-	res.data = a;
-	res.next = NULL;
-	now->next = &res;
+/* 链表 */
+
+void initList() {
+	list.id = -1;
+	list.next = NULL;
 }
 
-Card* searchList(char *aName) {
-	Node* now = &card;
-	while(now->next != NULL){
-		now = now->next;
-		if(strcmp(now->data->aName,aName)==0)
-			return now->data;
-	}
-	return NULL;
+void addNode(int id) {
+	Node* now = &list;
+	while(now->next!=NULL) now = now->next;
+	Node* res = (Node*)malloc(sizeof(Node));
+	res->next = NULL;
+	res->id = id;
+	now->next = res;
 }
 
-int deleNode(char* aName) {
+void deleteNode(int id) {
+	Node* now = &list;
 	Node* front = NULL;
-	Node* now = &card;
-
-	while(now->next != NULL) {
+	while(now->next!=NULL) {
 		front = now;
 		now = now->next;
-		if(strcmp(now->data->aName,aName)==0){
+		if(now->id == id) {
 			front->next = now->next;
-			free(now);
+			break;
 		}
-		return 1;
+	}
+}
+
+int searchNode(int id) {
+	int i = 0;
+	Node* now = &list;
+	while(now->next!=NULL){
+		now = now->next;
+		i++;
+		if(now->id == id) {
+			return i;
+		}
 	}
 	return 0;
 }
 
 void printAll() {
-	Node* now = &card;
-	while(now->next != NULL) {
+	Node *now = &list;
+	while(now->next!=NULL) {
 		now = now->next;
-		printf("%s\n",now->data->aName);
+		printf("%d -> ",now->id);
 	}
 }

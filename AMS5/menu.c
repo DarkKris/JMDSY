@@ -42,7 +42,10 @@ void printCard() {
 		printf("没要查找到相应数据\n");
 		return;
 	}
-	printf("\n卡号\t\t密码\t开卡金额\t卡状态\n");
+	printf("\n卡号");
+	if(strlen(res->aName)>8)printf("\t"); // 对齐
+	printf("密码\t开卡金额\t卡状态\n");
+
 	printf("%s\t%s\t%f\t",res->aName, res->aPwd, res->fBalance);
 	switch(res->nStatus) {
 		case 0: printf("未上机\n");break;

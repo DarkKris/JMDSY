@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -25,12 +26,12 @@ typedef struct Card
 
 typedef struct Node
 {
-	int id;
+	Card* data;
 	struct Node* next;
 }Node;
 
-int readCard();
-int parseCard();
+
+/* Menu */
 void outputMenu();
 void addCard();
 void printCard();
@@ -40,20 +41,24 @@ void topUp();
 void withdraw();
 void searchAll();
 void exitCard();
+/* Card File */
 int saveCard(char* aName, char* aPwd, float fBalance, struct tm endtm);
-Card* searchCard(char *aName);
+int readCard();
+int parseCard();
+/* Tool */
 time_t stringToTime(char* s);
-
-void initList();
-void test();
-void addNode(int id);
-void deleteNode(int id);
-int searchNode(int id);
+/* List */
+void addToList(Card* a);
+int deleNode(char* aName);
+Card* searchList(char *aName);
 void printAll();
+/* Card Service */
+void initCardList();
+Card* queryCard(char *aName);
 
 
-int nowCardNum;
-Card card[MAXCARDNUMBER+1];
-Node list;
+int opt;			 // opt that the user chosen in the menu
+int nowCardNum=0;
+Node card;
 
 #endif
