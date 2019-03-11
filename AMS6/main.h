@@ -1,13 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #define MAXCARDNUMBER 10000000
 #define _CRT_SECURE_NO_WARNINGS
-// #define DEBUG
 
 typedef struct Card
 {
@@ -25,12 +25,19 @@ typedef struct Card
 
 typedef struct Node
 {
-	int id;
+	Card* data;
 	struct Node* next;
 }Node;
 
-int readCard();
-int parseCard();
+typedef struct login_log
+{
+	Card* card;
+	int opt; // opt-1:下机 0:上机
+	time_t time;
+	struct login_log *next;
+}login_log;
+
+/* Menu */
 void outputMenu();
 void addCard();
 void printCard();
@@ -40,20 +47,40 @@ void topUp();
 void withdraw();
 void searchAll();
 void exitCard();
+/* Card File */
 int saveCard(char* aName, char* aPwd, float fBalance, struct tm endtm);
-Card* searchCard(char *aName);
+int readCard();
+int parseCard();
+void updateSave(Card* data);
+void updateSaveAll();
+/* Tool */
 time_t stringToTime(char* s);
+void printCardInfo(const Card* res, int haveHead);
+/* List */
+void addToList(Card* a, Node* head);
+int deleNode(char* aName, Node* head);
+Card* searchList(char *aName,Node* head);
+void printAll(Node* head);
+/* Card Service */
+void initCardList();
+Card* queryCard(char *aName);
+Card* queryCard();
+Node* queryCards(const char* pName , int* pIndex);
+/* Login Log */
+void initLoginLog();
+void addLogToList(Card *card, int opt, time_t time);
+login_log* searchLog(char *aName);
+/* Login Log File*/
+void readLog();
+void praseLog();
+void saveLog();
+void updateLog();
 
-void initList();
-// void test();
-void addNode(int id);
-void deleteNode(int id);
-int searchNode(int id);
-void printAll();
 
 
+int opt;			 // opt that the user chosen in the menu
 int nowCardNum;
-Card card[MAXCARDNUMBER+1];
-Node list;
+Node card;
+login_log loginLog;
 
 #endif
