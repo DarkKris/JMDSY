@@ -76,7 +76,7 @@ void exitCard() {
 }
 
 int main() {
-	test();
+	// test();
 	readCard();
 	parseCard();
 	printf("欢迎进入计费管理系统\n");
